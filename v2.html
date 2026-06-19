@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta de Bienvenida – Beowolf Company V2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:        #0d1b2a;
+      --navy-mid:    #162536;
+      --acento:      #2a6a8a;
+      --acento-claro:#4a9ab8;
+      --plata:       #8ab4c8;
+      --plata-claro: #c8e0ea;
+      --blanco:      #ffffff;
+      --texto:       #1a2a36;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--navy);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px);
+      background-size: 220px 220px, 370px 370px, 160px 160px;
+      background-position: 30px 40px, 100px 120px, 200px 80px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    #carta {
+      position: relative;
+      z-index: 1;
+      background: var(--blanco);
+      width: 100%;
+      max-width: 660px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(74,154,184,0.25), 0 24px 64px rgba(0,0,0,0.7);
+      animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(28px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    #header {
+      background: var(--blanco);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 48px 22px;
+      border-bottom: 2px solid var(--acento);
+    }
+    #logo { max-width: 300px; max-height: 96px; object-fit: contain; }
+    #logo-fallback { display: none; text-align: center; }
+    #logo-fallback .wolf { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 700; color: var(--navy); letter-spacing: 2px; }
+    #logo-fallback .co   { font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--acento); letter-spacing: 6px; text-transform: uppercase; }
+    #cuerpo { padding: 34px 50px 42px; }
+    #titulo-empresa {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--acento);
+      text-align: center;
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--plata-claro);
+      padding-bottom: 16px;
+    }
+    .meta-fila { display: flex; gap: 10px; margin-bottom: 8px; font-size: 0.9rem; }
+    .meta-fila .label { font-weight: 700; color: var(--acento); min-width: 115px; }
+    .meta-fila .valor { color: var(--texto); }
+    .divisor { border: none; border-top: 1px solid #d8e8ef; margin: 20px 0; }
+    #nombre-empleado {
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.12rem;
+      color: var(--texto);
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+    #bloque-mensaje {
+      border-left: 4px solid var(--acento);
+      background: #eef6fa;
+      padding: 20px 24px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 28px;
+    }
+    #titulo-bienvenida { font-weight: 700; color: var(--texto); margin-bottom: 10px; font-size: 0.94rem; }
+    #mensaje { color: #2a3a44; line-height: 1.78; font-size: 0.9rem; }
+    #atentamente {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: #556677;
+      margin-bottom: 7px;
+      font-size: 1rem;
+    }
+    #emisor { color: var(--acento); font-weight: 700; font-size: 0.95rem; margin-bottom: 18px; }
+    #firma-container { margin-top: 8px; min-height: 60px; }
+    #firma { max-width: 190px; max-height: 72px; object-fit: contain; }
+    #firma-css {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--navy-mid);
+      border-bottom: 1px solid #aac4d0;
+      display: inline-block;
+      padding-bottom: 4px;
+      min-width: 180px;
+      letter-spacing: 1px;
+    }
+    #nav { position: relative; z-index: 1; display: flex; justify-content: center; gap: 18px; margin-top: 28px; }
+    .btn-nav {
+      background: var(--acento);
+      color: var(--blanco);
+      border: none;
+      padding: 11px 32px;
+      border-radius: 3px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-nav:hover  { background: var(--acento-claro); }
+    .btn-nav:active { transform: scale(0.97); }
+    #indicador {
+      position: relative;
+      z-index: 1;
+      color: rgba(255,255,255,0.38);
+      font-size: 0.76rem;
+      margin-top: 12px;
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="carta">
+    <div id="header">
+      <img id="logo" src="" alt="Logo Beowolf Company"
+           onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';" />
+      <div id="logo-fallback">
+        <div class="wolf">BEOWOLF</div>
+        <div class="co">Company</div>
+      </div>
+    </div>
+
+    <div id="cuerpo">
+      <div id="titulo-empresa"></div>
+
+      <div class="meta-fila">
+        <span class="label">Fecha:</span>
+        <span class="valor" id="fecha"></span>
+      </div>
+      <div class="meta-fila">
+        <span class="label">Departamento:</span>
+        <span class="valor" id="departamento"></span>
+      </div>
+
+      <hr class="divisor" />
+      <div id="nombre-empleado"></div>
+
+      <div id="bloque-mensaje">
+        <p id="titulo-bienvenida"></p>
+        <p id="mensaje"></p>
+      </div>
+
+      <div id="cierre">
+        <p id="atentamente">Atentamente,</p>
+        <p id="emisor"></p>
+        <div id="firma-container">
+          <img id="firma" src="" alt="Firma CEO"
+               onerror="this.style.display='none'; document.getElementById('firma-css').style.display='inline-block';" />
+          <span id="firma-css" style="display:none;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="nav">
+    <button class="btn-nav" onclick="cambiarEmpleado(-1)">Anterior</button>
+    <button class="btn-nav" onclick="cambiarEmpleado(1)">Siguiente</button>
+  </div>
+  <div id="indicador"></div>
+
+  <script>
+    let empleados = [], empresa = {}, indice = 0;
+
+    async function cargarXML() {
+      const res    = await fetch('empleados.xml');
+      const texto  = await res.text();
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(texto, 'application/xml');
+      empleados = Array.from(xmlDoc.querySelectorAll('empleado')).map(emp => ({
+        nombre:       emp.querySelector('nombre').textContent.trim(),
+        apellidos:    emp.querySelector('apellidos').textContent.trim(),
+        departamento: emp.querySelector('departamento').textContent.trim()
+      }));
+    }
+
+    async function cargarJSON() {
+      const res = await fetch('empresa.json');
+      empresa   = await res.json();
+    }
+
+    function renderizar() {
+      if (!empleados.length) return;
+      const emp   = empleados[indice];
+      const ahora = new Date();
+      const fecha = `${ahora.getMonth()+1}/${ahora.getDate()}/${ahora.getFullYear()}`;
+
+      const logoEl = document.getElementById('logo');
+      logoEl.style.display = 'block';
+      document.getElementById('logo-fallback').style.display = 'none';
+      logoEl.src = empresa.logo;
+
+      document.getElementById('titulo-empresa').textContent    = empresa.tituloBienvenida;
+      document.getElementById('fecha').textContent             = fecha;
+      document.getElementById('departamento').textContent      = emp.departamento;
+      document.getElementById('nombre-empleado').textContent   = `${emp.nombre} ${emp.apellidos}`;
+      document.getElementById('titulo-bienvenida').textContent = empresa.mensajeBienvenida;
+      document.getElementById('mensaje').textContent           = empresa.mensaje;
+      document.getElementById('emisor').textContent            = empresa.emisor;
+
+      const firmaEl = document.getElementById('firma');
+      firmaEl.style.display = 'block';
+      firmaEl.src = empresa.firma;
+
+      const firmaCss = document.getElementById('firma-css');
+      firmaCss.textContent = empresa.emisor.split('—')[0].trim();
+      firmaCss.style.display = 'none';
+
+      document.getElementById('indicador').textContent =
+        `Empleado ${indice + 1} de ${empleados.length}`;
+    }
+
+    function cambiarEmpleado(dir) {
+      indice = (indice + dir + empleados.length) % empleados.length;
+      renderizar();
+    }
+
+    async function iniciar() {
+      try {
+        await Promise.all([cargarXML(), cargarJSON()]);
+        renderizar();
+      } catch (err) {
+        console.error('Error:', err);
+        document.body.innerHTML +=
+          '<p style="color:#f9a;text-align:center;margin-top:20px;position:relative;z-index:1;">' +
+          '⚠️ Ejecuta desde servidor local: python servidor.py</p>';
+      }
+    }
+
+    iniciar();
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<empleados>
+  <empleado>
+    <nombre>Yanahi</nombre>
+    <apellidos>Rodríguez Belmont</apellidos>
+    <departamento>Gerencia General</departamento>
+  </empleado>
+  <empleado>
+    <nombre>Tonatiuh</nombre>
+    <apellidos>Reyes Reyes</apellidos>
+    <departamento>Supervisión</departamento>
+  </empleado>
+  <empleado>
+    <nombre>Ana</nombre>
+    <apellidos>García Ruiz</apellidos>
+    <departamento>Contabilidad</departamento>
+  </empleado>
+</empleados>

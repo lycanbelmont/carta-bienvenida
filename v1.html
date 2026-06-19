@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta de Bienvenida – Beowolf Company V1 (Sin Estilos)</title>
+</head>
+<body>
+
+  <div id="carta">
+
+    <div id="logo-container">
+      <img id="logo" src="" alt="Logo Beowolf Company" width="280" />
+    </div>
+
+    <hr />
+
+    <p><strong id="titulo-empresa"></strong></p>
+    <p><strong>Fecha:</strong> <span id="fecha"></span></p>
+    <p><strong>Departamento:</strong> <span id="departamento"></span></p>
+    <p><strong>Empleado:</strong> <span id="nombre-empleado"></span></p>
+
+    <hr />
+
+    <p id="titulo-bienvenida"></p>
+    <p id="nombre-empleado-2"></p>
+    <p id="mensaje"></p>
+
+    <p><em>Atentamente,</em></p>
+    <p><strong id="emisor"></strong></p>
+
+    <div id="firma-container">
+      <img id="firma" src="" alt="Firma" width="160"
+           onerror="this.style.display='none'" />
+    </div>
+
+  </div>
+
+  <br />
+  <button id="btn-anterior" onclick="cambiarEmpleado(-1)">Anterior</button>
+  <button id="btn-siguiente" onclick="cambiarEmpleado(1)">Siguiente</button>
+
+  <script>
+    let empleados = [];
+    let empresa   = {};
+    let indice    = 0;
+
+    async function cargarXML() {
+      const res    = await fetch('empleados.xml');
+      const texto  = await res.text();
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(texto, 'application/xml');
+      empleados = Array.from(xmlDoc.querySelectorAll('empleado')).map(emp => ({
+        nombre:       emp.querySelector('nombre').textContent.trim(),
+        apellidos:    emp.querySelector('apellidos').textContent.trim(),
+        departamento: emp.querySelector('departamento').textContent.trim()
+      }));
+    }
+
+    async function cargarJSON() {
+      const res = await fetch('empresa.json');
+      empresa   = await res.json();
+    }
+
+    function renderizar() {
+      if (empleados.length === 0) return;
+      const emp  = empleados[indice];
+      const ahora = new Date();
+      const fecha = `${ahora.getMonth()+1}/${ahora.getDate()}/${ahora.getFullYear()}`;
+
+      document.getElementById('logo').src                    = empresa.logo;
+      document.getElementById('titulo-empresa').textContent  = empresa.tituloBienvenida;
+      document.getElementById('fecha').textContent           = fecha;
+      document.getElementById('departamento').textContent    = emp.departamento;
+      document.getElementById('nombre-empleado').textContent = `${emp.nombre} ${emp.apellidos}`;
+      document.getElementById('titulo-bienvenida').textContent = empresa.mensajeBienvenida;
+      document.getElementById('nombre-empleado-2').textContent = `${emp.nombre} ${emp.apellidos}`;
+      document.getElementById('mensaje').textContent         = empresa.mensaje;
+      document.getElementById('emisor').textContent          = empresa.emisor;
+      document.getElementById('firma').src                   = empresa.firma;
+    }
+
+    function cambiarEmpleado(dir) {
+      indice = (indice + dir + empleados.length) % empleados.length;
+      renderizar();
+    }
+
+    async function iniciar() {
+      try {
+        await Promise.all([cargarXML(), cargarJSON()]);
+        renderizar();
+      } catch (err) {
+        console.error('Error cargando datos:', err);
+        document.body.innerHTML += '<p style="color:red;">⚠️ Error: ejecuta desde un servidor local (python servidor.py).</p>';
+      }
+    }
+
+    iniciar();
+  </script>
+
+</body>
+</html>
